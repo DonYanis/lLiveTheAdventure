@@ -1,0 +1,232 @@
+/* ------------SETTINGS--------------- */
+
+@font-face {
+  font-family: "poppins-light";
+  src: url(Poppins/Poppins-Thin.ttf);
+}
+@font-face {
+  font-family: "poppins-regular";
+  src: url(Poppins/Poppins-Regular.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: "poppins-regular";
+}
+:root {
+  --primary: #f6ea38;
+  --secondary: #d4c813;
+  --dark1: #292929;
+  --dark2: #474747;
+  --dark3: #767676;
+  --dark4: #b3b3b3;
+  --white: #fff;
+  --kayak: #57dcbe;
+  --sejour: #ff9900;
+  --bivouac: #1fab1c;
+  --randonnee: #0066ff;
+}
+.Capa_1 {
+  width: 13px;
+}
+.Capa_1 g {
+  fill: var(--primary);
+}
+
+/* ----------------Code---------------- */
+
+body {
+  background-color: var(--dark1);
+}
+
+/* --------------main---------------- */
+
+main {
+  width: 100%;
+  margin: 110px auto 0;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+main * {
+  color: var(--white);
+}
+
+h1 {
+  font-size: 22px;
+}
+.border {
+  height: 3px;
+  width: 80px;
+  border-radius: 1.5px;
+  background-color: var(--white);
+  margin-top: 5px;
+}
+.container-calendar {
+  max-width: 450px;
+  width: calc(100% - 80px);
+  min-height: calc(100vh - 230px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-image: linear-gradient(to bottom, var(--dark2), var(--dark1));
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.arrows{
+  margin: auto;
+  height: 30px;
+  width: 200px;
+  position: relative;    
+}
+.month {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  background-color: var(--dark4);
+  height: 30px;
+  width: 200px;
+  border-radius: 15px;
+}
+.month h3 {
+  font-size: 16px;
+  margin: 0 3px;
+  color: var(--dark1);
+}
+#left-arrow,
+#right-arrow {
+  width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin: 0 10px;
+    cursor: pointer;
+    position: absolute;
+}
+#left-arrow{
+  left: 10px;
+  bottom: -38px;
+}
+#right-arrow{
+  right: 10px;
+  bottom: -38px;
+}
+#left-arrow:hover,
+#right-arrow:hover {
+  background-color: var(--dark2);
+}
+#left-arrow:hover > svg,
+#right-arrow:hover > svg {
+  fill: var(--white);
+}
+#left-arrow svg {
+  fill: var(--dark1);
+  transform: rotate(-90deg);
+  height: 10px;
+  width: 10px;
+}
+#right-arrow svg {
+  fill: var(--dark1);
+  transform: rotate(90deg);
+  height: 10px;
+  width: 10px;
+}
+
+.all-sorties{
+  width: 100%;
+  display: flex;
+  max-width: 500px;
+}
+.sorties{
+  width: 100%;
+  display: none;
+  flex-direction: column;
+}
+#active{
+  display: flex;
+}
+.sortie {
+  width: 100%;
+  max-width: 500px;
+  margin: 5px auto;
+  height: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+}
+.sorties a {
+  text-decoration: none;
+}
+.sortie *{
+margin: 0;
+}
+.sortie:hover {
+  background-color: var(--dark4);
+}
+.sortie:hover > * {
+  color: var(--dark1);
+}
+.color {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+}
+.kayak {
+  background-color: var(--kayak);
+}
+.sejour {
+  background-color: var(--sejour);
+}
+.bivouac {
+  background-color: var(--bivouac);
+}
+.randonnee {
+  background-color: var(--randonnee);
+}
+#nom-sortie {
+  font-size: 13px;
+  font-family: "poppins-light";
+}
+#date-sortie {
+  font-size: 11px;
+  font-family: "poppins-light";
+}
+.down-logo {
+  width: 50%;
+  max-width: 500px;
+  opacity: 0.02;
+  margin-top: -70px;
+  pointer-events: none;
+}
+
+/* ----------------responsive------------------- */
+
+@media (min-width: 900px) {
+  .container-calendar {
+    max-width: 1000px;
+    min-height: fit-content;
+  }
+}
+@media (max-width:380px) {
+  .container-calendar{
+    width: calc(100% - 40px);
+  }
+}
+@media (max-width:370px) {
+  .container-calendar{
+    width: 100%;
+  }
+}

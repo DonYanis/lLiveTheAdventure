@@ -1,0 +1,352 @@
+/* ------------SETTINGS--------------- */
+
+@font-face {
+  font-family: "poppins-light";
+  src: url(Poppins/Poppins-Thin.ttf);
+}
+@font-face {
+  font-family: "poppins-regular";
+  src: url(Poppins/Poppins-Regular.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: "poppins-regular";
+}
+:root {
+  --primary: #f6ea38;
+  --secondary: #d4c813;
+  --dark1: #292929;
+  --dark2: #474747;
+  --dark3: #767676;
+  --dark4: #b3b3b3;
+  --white: #fff;
+}
+.Capa_1 {
+  width: 13px;
+}
+.Capa_1 g {
+  fill: var(--primary);
+}
+
+/* ----------------Code---------------- */
+
+body {
+  background-color: var(--dark1);
+}
+
+/* ---------------NavBar--------------- */
+
+/* --------------main---------------- */
+
+main {
+  width: 100%;
+  margin: 110px auto 0;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+main * {
+  color: var(--white);
+}
+
+h1 {
+  font-size: 22px;
+}
+.border {
+  height: 3px;
+  width: 80px;
+  border-radius: 1.5px;
+  background-color: var(--white);
+  margin-top: 5px;
+}
+.container-profile {
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  width: calc(100% - 80px);
+  background-image: linear-gradient(to top, var(--dark2), var(--dark1));
+  margin-bottom: 20px;
+  border-radius: 5px;
+  min-height: calc(100vh - 230px);
+}
+
+/* ----------left------------- */
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inner-left {
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  position: relative;
+}
+.inner-left .profile-pic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inner-left img {
+  border-radius: 50%;
+  width: 145px;
+  height: 145px;
+  object-fit: cover;
+}
+.inner-left p {
+  display: block;
+  font-size: 45px;
+  display: none;
+}
+#change-pic {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark1);
+  box-shadow: 2px 2px 6px var(--dark1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+#change-pic:hover {
+  background-color: var(--primary);
+}
+#change-pic:hover > svg g {
+  fill: var(--dark1);
+}
+
+/* ----------right---------- */
+
+.right {
+  width: 100%;
+  margin: 20px 0 20px 0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.between {
+  width: 200px;
+  height: 1px;
+  background-color: var(--white);
+  margin-bottom: 20px;
+}
+.right ul {
+  width: 100%;
+  padding: 0;
+}
+.right li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 25px;
+}
+.right li div {
+  display: flex;
+}
+.right li div *{
+  margin: 0;
+}
+
+.right li div p {
+  display: block;
+}
+.right li .parametre {
+  font-size: 13px;
+  font-family: "poppins-light";
+  width: 120px;
+}
+.right li .value {
+  display: block;
+  font-size: 14px;
+  font-family: "poppins-light";
+  width: 120px;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.right li .value::-webkit-scrollbar {
+  display: none;
+}
+.right li form,
+.right li .enregistrer {
+  display: none;
+}
+#points,
+#statut {
+  width: calc(100% - 120px);
+}
+
+.right li input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--primary);
+  width: 180px;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  font-size: 12px;
+}
+.right li .input::-webkit-scrollbar {
+  display: none;
+}
+.right li input:focus {
+  outline: none;
+}
+.right li .enregistrer {
+  font-size: 10px;
+  font-family: "poppins-regular";
+  color: var(--dark1);
+  padding: 1px 5px;
+  background-color: var(--primary);
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.right li .enregistrer:hover {
+  background-color: var(--secondary);
+}
+.right svg {
+  cursor: pointer;
+}
+#probleme {
+  color: red;
+  font-size: 12px;
+  display: none;
+}
+
+/* ----------changer la photo de profile-------------- */
+
+.tableau {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  display: none;
+  flex-direction: column;
+}
+#upload-picture {
+  display: none;
+}
+#insererPhotosLabel {
+  width: 100%;
+  text-align: center;
+  height: 30px;
+  color: var(--dark1);
+  cursor: pointer;
+  background-color: var(--dark3);
+  border-top-left-radius: 5px;
+  border-bottom: 2px solid var(--dark4);
+}
+
+#remove-picture {
+  width: 100%;
+  text-align: center;
+  height: 30px;
+  color: var(--dark1);
+  cursor: pointer;
+  background-color: var(--dark3);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: var(--primary);
+}
+#insererPhotosLabel:hover,
+#remove-picture:hover {
+  background-color: var(--dark4);
+}
+.dark-cover {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  opacity: 0.7;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+}
+.close {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--dark4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px var(--dark2);
+  cursor: pointer;
+}
+.close:hover {
+  background-color: var(--dark3);
+}
+.close svg {
+  height: 10px;
+}
+
+/* ----------------responsive------------------- */
+
+@media (min-width: 900px) {
+  .container-profile {
+    max-width: 800px;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: fit-content;
+    height: 300px;
+  }
+  .left {
+    width: 40%;
+  }
+  .inner-left {
+    width: 190px;
+    height: 190px;
+  }
+  .inner-left img {
+    width: 175px;
+    height: 175px;
+  }
+  .right {
+    width: 60%;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .between {
+    width: 2px;
+    height: 150px;
+    margin-bottom: 0;
+    margin-right: 20px;
+  }
+  .right li .parametre {
+    font-family: "poppins-light";
+    opacity: 0.7;
+  }
+  .right li .value {
+    font-family: "poppins-regular";
+  }
+}
+@media (max-width:380px) {
+  .container-profile{
+    width: calc(100% - 40px);
+  }
+}
