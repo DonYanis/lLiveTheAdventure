@@ -1,0 +1,158 @@
+{% load static %}
+{% load socialaccount %}
+<!-- modalsignIn -->
+<div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="bg-container">
+      <img
+        id="first"
+        class="SVGs"
+        src="{% static 'components/Vector 61.svg' %}"
+        alt=""
+        srcset=""
+      />
+      <img
+        id="second"
+        class="SVGs"
+        src="{% static 'components/Vector 60.svg'%}"
+        alt=""
+        srcset=""
+      />
+    </div>
+
+    <div id="modal1" class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+        <div id="form-login" class="form-container sign-in-container">
+          <form method="POST" action="">
+            {% csrf_token %}
+            {{loginform.login_user_form}}
+            <h1 class="formTitle">Se connecter</h1>
+            <a href="#"  data-bs-dismiss="modal" data-bs-target="#login-modal" aria-label="Close">
+              
+              <svg
+              id="close-btn"
+                class=" position-absolute top-0 start-100 translate-middle Close"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-x"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+            </a>
+
+            <div class="social-container">
+              <a href="{% provider_login_url 'google' %}" class="social"><svg class="social-icons" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+              </svg></a>
+            </div>
+            <span class="little">ou utilisez votre compte</span>
+            <div class="form__group">
+              <input type="email" class="form__field" placeholder="Email" name="email" id='email' required />
+              <label for="email" class="form__label">Email</label> </div>
+            <div class="form__group">
+              <input type="password" class="form__field" placeholder="Password" name="password" id='password-login' required />
+              <label for="password" class="form__label">Mot de passe</label> 
+              <span class="input-group-text" onclick="password_show_hide_login();">
+                <i class="fas fa-eye" id="show_eye"></i>
+                <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+              </span>
+            </div>
+            <a href="{%url 'password_reset' %}" class="little forget">Mot de passe oublié?</a>
+          
+          <button class="form-button my-2" type="submit">Se connecter</button>
+        </form>
+          <span class="forget">-Ou-</span>
+          <a href="#" id="signINlink"  data-bs-target="#signUp-modal" data-bs-toggle="modal">Créer un compte</a>
+
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<!-- modalsignUp -->
+<div  class="modal fade" id="signUp-modal" aria-hidden="true" aria-labelledby="signUp-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="bg-container">
+    <img
+      id="first"
+      class="SVGs"
+      src="{% static 'components/Vector 61.svg' %}"
+      alt=""
+      srcset=""
+    />
+    <img
+      id="second"
+      class="SVGs"
+      src="{% static 'components/Vector 60.svg' %}"
+      alt=""
+      srcset=""
+    />
+  </div>
+  <div id="modal2" class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+    <div id="form-signup" class="form-container sign-up-container">
+      <form method="POST" action="" autocomplete="off">
+        {% csrf_token %}
+        {{createuser.create_user_form}}
+        <h1 class="formTitle">Créer un Compte</h1>
+        <a href="#"  data-bs-dismiss="modal" data-bs-target="#signUp-modal" aria-label="Close">
+            
+          <svg
+          id="close-btn"
+            class=" position-absolute top-0 start-100 translate-middle Close"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-x"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+            />
+          </svg>
+        </a>
+
+        <div class="social-container">
+          <a href="{% provider_login_url 'google' %}" class="social"><svg class="social-icons" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+            <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+          </svg></a>
+        </div>
+        <span class="little">ou utilisez votre email pour vous inscrire</span>
+        <div class="form__group"><input type="input" class="form__field" placeholder="Name" name="name" id='name' required />
+          <label for="name" class="form__label">Nom complet</label> </div>
+        <div class="form__group">
+          <input type="input" class="form__field" placeholder="Number" name="Number" id='number' required />
+          <label for="number" class="form__label">Numéro de téléphone</label> </div>
+        <div class="form__group"><input type="email" class="form__field" placeholder="Email" name="email" id='email' required />
+          <label for="email" class="form__label">Email</label> </div>
+        <div class="form__group position-relative">
+          <div class="form__group"><input autocomplete="off" type="text" class="form__field" placeholder="username" name="username" id='username' required />
+            <label for="username" class="form__label">Username</label> </div>
+          <div class="form__group position-relative">
+          <input onkeyup="trigger()" type="password" class="form__field" placeholder="Password" value="" name="password" id='password-signup' required />
+          <label for="password" class="form__label">Mot de passe </label>
+
+          <span class="input-group-text" onclick="password_show_hide();">
+            <i class="fas fa-eye" id="show_eye1"></i>
+            <i class="fas fa-eye-slash d-none" id="hide_eye1"></i>
+          </span>
+        </div>
+        <div class="pwdchecker">
+          <span class="pwdlevel weak"></span>
+          <span class="pwdlevel medium"></span>
+          <span class="pwdlevel strong"></span>
+        </div>
+        <div class="textcheker">Votre mot de passe est trop faible</div>
+        <button id="signUpBtn" class="form-button my-2" type="submit">S’inscrire</button>
+      </form>
+      <span class="forget ">Vous avez un compte? <a href="#" id="signINlink"  data-bs-target="#login-modal" data-bs-toggle="modal"> Connectez vous</a></span>
+      
+    </div>
+  </div>
+</div>

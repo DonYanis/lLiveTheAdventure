@@ -1,0 +1,205 @@
+
+{% load static %}
+    <div class="container">
+        <div class="nav">
+        <a href="{% url 'home' %}" ><img src="{% static 'images/IMG_5359.PNG' %}" alt="logo"></a>
+        <a href="{% url 'home' %}"><h3> ADMIN PAGE</h3></a>
+        <a href="#" id="log-out" class="navlogout">log out</a>
+        </div>
+        <main>
+            <section class="sorties">
+                <h2>Sorties actives</h2>
+                {% for trip in trips %}
+                {% if trip.active %}
+                <a class="sortie-a" href="{%url 'tripPage' trip.id 0 %}">
+                    <div id="s1" class="sortie">
+                        <div class="sortie1">
+                            <h3>{{trip.name}}</h3>
+                            <h4>{{trip.depart}} - {{trip.retour}}</h4>
+                        </div>
+                        <div class="sortie2">
+                            <h3>{{trip.taken_places}} / {{trip.total_places}}</h3>
+                            <div class="button">
+                                <svg  x="0px" y="0px"
+                                width="30.729px" height="30.729px" viewBox="0 0 30.729 30.729" style="enable-background:new 0 0 30.729 30.729; fill: #767676;"
+                                xml:space="preserve">
+                           <g>
+                               <path d="M24.813,15.366L10.185,29.997c-0.487,0.487-1.128,0.731-1.768,0.731c-0.641,0-1.279-0.244-1.769-0.731
+                                   c-0.977-0.978-0.977-2.561,0-3.536l11.095-11.096L6.649,4.268c-0.976-0.977-0.976-2.56,0-3.536c0.977-0.977,2.56-0.976,3.536,0
+                                   L24.813,15.366z"/>
+                           </g>
+                                                   </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>{% endif %}{% endfor %}
+                <div class="ajouter" id="ajouterSortie">
+                    <p>+</p>
+                </div>
+            </section>
+            <section class="blogs">
+                <h2>Blogs:</h2>
+                {% for blog in blogs %}
+                <a href="{%url 'blog' blog.id %}">
+                    <div class="blog">
+                        <div class="blog1">
+                            <h3>{{blog.name}}</h3>
+                            <h4>{{blog.created}}</h4>
+                        </div>
+                        <div class="blog2">
+                            <div class="button">
+                                <svg  x="0px" y="0px"
+                                width="30.729px" height="30.729px" viewBox="0 0 30.729 30.729" style="enable-background:new 0 0 30.729 30.729;fill: #767676;"
+                                xml:space="preserve">
+                           <g>
+                               <path d="M24.813,15.366L10.185,29.997c-0.487,0.487-1.128,0.731-1.768,0.731c-0.641,0-1.279-0.244-1.769-0.731
+                                   c-0.977-0.978-0.977-2.561,0-3.536l11.095-11.096L6.649,4.268c-0.976-0.977-0.976-2.56,0-3.536c0.977-0.977,2.56-0.976,3.536,0
+                                   L24.813,15.366z"/>
+                           </g>
+                                                   </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+                <div class="ajouter" id="ajouterBlog">
+                    <p>+</p>
+                </div>
+            </section>
+            <section class="inscrits" id="inscrits">
+                <h2>Inscrits et Feedbacks:</h2>
+                <a href="{%url 'clientlist' 0 %}">Liste des inscrits</a>
+                <a href="{%url 'feedbackpage' %}">Feedbacks</a>
+            </section>
+        </main>
+    </div>
+    <div class="dark-cover"></div>
+    <div class="tableau-log-out">
+        <p>vous etes sure de vouloir deconnecter?</p>
+        <a href="{%url 'logout' %}" id="log-out-oui">oui</a>
+        <a href="#" id="log-out-non">non</a>
+    </div>
+    <div class="creerSortie">
+        <div class="close">
+            <svg version="1.1" id="Capa_1"  x="0px" y="0px"
+                 viewBox="0 0 460.775 460.775" style="enable-background:new 0 0 460.775 460.775; fill:#fff" xml:space="preserve">
+            <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+                c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+                c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+                c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
+                l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
+                c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/>
+            </svg>
+        </div>
+        <h2>Créer une sortie</h2>
+        <form id="form-sortie"action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{tripform.trip_form}}
+            <div class="creerSortiepart creerSortie1">
+                <label for="NomSortie">Nom de la sortie</label>
+                <input type="text" name="NomSortie" id="NomSortie" required>
+                <label for="categorie">Catégorie</label>
+                <select name="categorie" id="categorie">
+                    {%for type in types%}
+                    <option value="{{type.name}}">{{type.name}}</option>
+                    {%endfor%}
+                  </select>
+                <label for="niveau">Niveau:</label>
+                <select name="niveau" id="niveau">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" rows="2" required></textarea>
+                <label for="lienBlog">Lien du blog:</label>
+                <input type="text" name="lienBlog" id="lienBlog">
+            </div>
+            <div class="between"></div>
+            <div class="creerSortiepart creerSortie2">
+                <label for="depart">départ:</label>
+                <input type="datetime-local" id="depart" name="depart" required>
+                <label for="retour">Retour:</label>
+                <input type="datetime-local" id="retour" name="retour" required>
+                <label for="pointRV">Point de rendez-vous:</label>
+                <input type="text" id="pointRV" name="pointRV" required>
+                <label for="nombrePlaces">Nombre de places:</label>
+                <input type="number" id="nombrePlaces" name="nombrePlaces" required>
+                <label for="prix">Prix (DA):</label>
+                <input type="number" id="prix" name="prix" required>
+                <input type="submit" id="submitSortie" class="submit">
+            </div>
+            <div class="between"></div>
+            <div class="creerSortiepart creerSortie3">
+                <label for="programme">Programme:</label>
+                <textarea name="programme" id="programme" rows="2"></textarea>
+                <label for="prevoir">à prévoir</label>
+                <textarea name="prevoir" id="prevoir" rows="2"></textarea>
+                <label for="prixComprend">Le prix comprend:</label>
+                <input type="text" name="prixComprend" id="prixComprend">
+                <label for="insererPhotosSortie" class="insererPhotosLabel">inserer des photos</label>
+                <input type="file" name="insererPhotosSortie" id="insererPhotosSortie" class="insererPhotos" multiple required>
+            </div>
+        </form>
+    </div>
+    <div class="creerBlog">
+        <div class="close">
+            <svg version="1.1" id="Capa_1"  x="0px" y="0px"
+                 viewBox="0 0 460.775 460.775" style="enable-background:new 0 0 460.775 460.775; fill:#fff" xml:space="preserve">
+            <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+                c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+                c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+                c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
+                l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
+                c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/>
+            </svg>
+        </div>
+        <h2>Créer un blog</h2>
+        <form  action="" method="POST" id="form-blog" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{blogform.edit_blog}}
+            <div class="creerBlogpart creerBlog1">
+                <label for="nomBlog">Nom du blog:</label>
+                <input type="text" id="nomBlog" name="nomBlog" required>
+                <label for="blogSection1">texte princiapal:</label>
+                <textarea name="blogSection1" id="blogSection1" rows="2" required></textarea>
+                <label for="insererPhotoPrincipale" class="insererPhotosLabel">inserer la photo principale</label>
+                <input type="file" class="insererPhotos" name="insererPhotoPrincipale" id="insererPhotoPrincipale" required>
+            </div>
+            <div class="between"></div>
+            <div class="creerBlogpart creerBlog2">
+                <label for="titresection2">titre de la 2eme section:</label>
+                <input type="text" id="titresection2" name="titresection2">
+                <label for="blogSection2">text pour la 2eme section:</label>
+                <textarea name="blogSection2" id="blogSection2" rows="2"></textarea>
+                <label for="insererPhotosSection2" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection2" id="insererPhotosSection2" multiple>
+                <label for="titresection3">titre de la 3eme section:</label>
+                <input type="text" id="titresection3" name="titresection3" >
+                <label for="blogSection3">text pour la 3eme section:</label>
+                <textarea name="blogSection3" id="blogSection3" rows="2"></textarea>
+                <label for="insererPhotosSection3" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection3" id="insererPhotosSection3" multiple>
+                <input type="submit" class="submit" id="submitBlog">
+            </div>
+            <div class="between"></div>
+            <div class="creerBlogpart creerBlog3">
+                <label for="titresection4">titre de la 4eme section:</label>
+                <input type="text" id="titresection4" name="titresection4" >
+                <label for="blogSection4">text pour la 4eme section:</label>
+                <textarea name="blogSection4" id="blogSection4" rows="2"></textarea>
+                <label for="insererPhotosSection4" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection4" id="insererPhotosSection4" multiple>
+                <label for="titresection5">titre de la 5eme section:</label>
+                <input type="text" id="titresection5" name="titresection5" >
+                <label for="blogSection5">text pour la 5eme section:</label>
+                <textarea name="blogSection5" id="blogSection5" rows="2"></textarea>
+                <label for="insererPhotosSection5" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection5" id="insererPhotosSection5" multiple>
+            </div>
+        </form>
+    </div>
+
+<script src="{%static 'js/admin.js' %}"></script>

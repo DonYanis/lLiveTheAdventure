@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+ 
+{% block content %}
+
+    {%if request.user.is_authenticated and request.user.is_admin%}
+
+        {% include 'admin.html' %}
+
+    {% else %}
+
+        {%include 'trip_list.html'%}
+
+    {%endif%}
+
+{% endblock content %}

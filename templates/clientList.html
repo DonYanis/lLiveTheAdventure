@@ -1,0 +1,88 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="nav">
+    <a href="{% url 'home' %}"><img src="{% static 'images/IMG_5359.PNG' %}" alt="logo"></a>
+        <a href="{% url 'home' %}"><h3> ADMIN PAGE</h3></a>
+        <a href="#" id="log-out" class="navlogout">log out</a>
+</div>
+<div class="inscrits">
+    <h1>Liste des inscrits</h1>
+    <div class="border"></div>
+    <div class="liste-des-inscrits" id="liste-des-inscrits">
+        <div class="infosSortie2">
+            <div class="liste">
+                <div class="participants">
+                    {% for client in clients %}
+                    <a href="{% url 'clientlist' client.id%}" class="participant">
+                        <div class="pic">
+                            {% if client.has_avatar %}
+                            <img src="{{client.avatar.url}}" class="profile-pic" alt="">
+                            {% else %}
+                            <p>{{client.name.0}}</p>
+                            {% endif %}
+                    </div>
+                        <div class="name-pseudo">
+                            <h5 class="name">{{client.name}}</h5>
+                            <p class="pseudo">#{{client.username}}</p>
+                        </div>
+                        <p class="statut">{{client.status}}</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="between"></div>
+            <div class="right">
+                <div class="profile">
+                    <div class="pic">
+                        {% if currentuser.has_avatar %}
+                            <img src="{{currentuser.avatar.url}}" class="profile-pic" alt="">
+                            {% else %}
+                            <p class="profile-pic-text">{{currentuser.name.0}}</p>
+                            {% endif %}      
+                      </div>
+                    <div class="infos">
+                        <div class="infos1">
+                            <p>Nom:</p>
+                            <p>Psudo:</p>
+                            <p>Num </p>
+                            <p>Email:</p>
+                            <p>Statut</p>
+                            <p>Points:</p>
+                        </div>
+                        <div class="infos2">
+                            <p class="nom">{{currentuser.name}}</p>
+                            <p class="psudo">{{currentuser.username}}</p>
+                            <p class="numTel">{{currentuser.phonenumber}}</p>
+                            <p class="email">{{currentuser.email}}</p>
+                            <p class="statut-liste">{{currentuser.status}}</p>
+                            <p class="points-liste">{{currentuser.points}}</p>
+                            <form id="modifierPofileSortieForm" action="" method="POST">
+                                {% csrf_token %}
+                                <select name="statut-liste" id="statut-liste" required>
+                                    <option value="Simple">Simple</option>
+                                    <option value="Adherent">adherant</option>
+                                    <option value="fidele">fidele</option>
+                                </select>
+                                <input type="text" name="points-liste" id="points-liste" placeholder="inserez le nombre de points">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button id="modifierPofileListe">Modifier le profile</button>
+                        <button type="submit" form="modifierPofileSortieForm" id="enregistrerPofileListe">Enregistrer</button>
+                     </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+<div class="dark-cover"></div>
+<div class="tableau-log-out">
+    <p>vous etes sure de vouloir deconnecter?</p>
+    <a href="{%url 'logout' %}" id="log-out-oui">oui</a>
+    <a href="#" id="log-out-non">non</a>
+</div>
+
+<script src="{%static 'js/admin-liste-inscrits.js' %}"></script>
+{% endblock content %}

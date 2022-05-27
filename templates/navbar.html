@@ -1,0 +1,613 @@
+{%load static%}
+{%if request.user.is_authenticated %}
+  <nav class="navbar navbar-expand-sm">
+    <div class="container-sm">
+      <a class="navbar-brand mx-auto" href="{% url 'home' %}"
+        ><img src="{% static 'images/IMG_5359.PNG' %}" alt="logo" height="40"
+      /></a>
+      <div
+      id="navbar-toggler2"
+      class="navbar-toggler-icon" onclick="openNav()"
+       >
+      <svg
+        class="bar-icon"
+        id="bar1"
+        width="15"
+        height="2"
+        viewBox="0 0 15 2"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1L14 1"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        class="bar-icon"
+        id="bar2"
+        width="31"
+        height="2"
+        viewBox="0 0 31 2"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1H29.5"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        class="bar-icon"
+        id="bar3"
+        width="15"
+        height="2"
+        viewBox="0 0 15 2"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1L14 0.999999"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      
+      <svg
+        id="circle-icon-toggler"
+        class="circle"
+        viewBox="0 0 6 6"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="3" cy="3" r="3" fill="#FF0000" />
+      </svg>
+      
+      
+    </div>
+      <div class=" container navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto  my-2 my-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link nav-items" href="{% url 'home' %}">Nos sorties</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-items" href="{%url 'calendar'%}">Calendrier</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-items" href="{%url 'blogs'%}"> Notre blog </a>
+          </li>
+          {% if page == 'home' %}
+          <li class="nav-item">
+            <div class="dropdown">
+              <a
+                class="dropdown-toggle nav-link nav-items"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Type
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-dark" 
+                  aria-labelledby="dropdownMenuLink" >
+                  <li><a class="dropdown-item" href="{%url 'home' %}">Tous</a></li>
+                  <li>
+                  <li><a class="dropdown-item" href="/?q=bivouac">Bivouac</a></li>
+                  <li>
+                    <a class="dropdown-item" href="/?q=randonnee">Randonnées</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/?q=kayak">Sorties Kayak</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/?q=sejour">Séjours</a>
+                  </li>
+                </ul>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="wrapper">
+          <nav  class="profile mx-md-4">
+            <div id="notification-not">
+              {% if notificated %}
+              <span
+                id="notification-bell"
+                class="fa-solid fa-bell fa-xl dropbtn"
+                data-bs-toggle="modal"
+                data-bs-target="#notification2-modal" >
+            </span>
+              {% else %}
+              <span
+                id="notification-bell"
+                class="fa-solid fa-bell fa-xl dropbtn"
+                data-bs-toggle="modal"
+                data-bs-target="#notification-modal" 
+                >
+              </span>
+              {% endif %}
+              {% if notificated %}
+      
+             <svg class="circle position-absolute top-0 start-50" width="7" height="7" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="3" cy="3" r="3" fill="#FF0000"/>
+              </svg> 
+              {% endif %}
+              </div>
+          </nav>
+          <nav class="profile">
+            {% if request.user.has_avatar %}
+            <img
+              id="thum"
+              class="drop-btn dropbtn"
+              onclick="dropthum()"
+              src="{{request.user.avatar.url}}"
+            ></img>
+            {% else %}
+            <img
+              id="thum"
+              class="drop-btn dropbtn"
+              onclick="dropthum()"
+              src="{% static 'components/avatar.svg' %}"
+            ></img>
+            {% endif %}
+            
+            <div id="profil-wrapper" class="links-wrapper">
+              <ul
+                id="profil-menu"
+                class="menu-bar position-relative dropdown-content"
+              >
+                <i
+                  class="fa-solid fa-caret-up fa-2xl position-absolute top-0 start-50 translate-middle"
+                ></i>
+                <li class="nav-it">
+                  <a class="nav-links" href="{% url 'userprofile' %}">
+                    <i class="fa-solid fa-user-pen menu-icons"></i>
+                    Modifier mon profile
+                  </a>
+                </li>
+                <li class="nav-it">
+                  <a class="nav-links" href="{% url 'logout' %}">
+                    <i class="fa-solid fa-right-from-bracket menu-icons"></i
+                    >Se déconnecter
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div id="main-nav" class="navbar-responsive ">
+    <div class="navbar-header"> 
+
+      
+      
+      <div class="dropdown">
+        {% if request.user.has_avatar %}
+        <img
+        src="{{request.user.avatar.url}}" alt="photo-de-profil"
+          class="dropdown-toggle el-header"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+        {% else %}
+        <img
+        src="{% static 'components/avatar.svg'%}" alt="photo-de-profil"
+          class="dropdown-toggle el-header"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+      {% endif %}
+        <ul
+          class="dropdown-menu dropdown-menu-dark"
+          aria-labelledby="dropdownMenuLink"
+        >
+        <li class=" nav-it dropdown-item">
+          <a class="nav-links" href="{% url 'userprofile' %}">
+            <i class="fa-solid fa-user-pen menu-icons"></i>Modifier mon profile
+          </a>
+        </li>
+        <li class=" nav-it dropdown-item">
+          <a class="nav-links" href="{% url 'logout' %}">
+            <i class="fa-solid fa-right-from-bracket menu-icons"></i
+            >Se déconnecter
+          </a>
+        </li>
+        </ul>
+      </div>
+      <span class="bi bi-x" onclick="closeNav()"></span>   
+    </div>
+    <div class="navbar-body mt-2 ">
+      <ul class="navbar-nav-resp ">
+
+        {% if page == 'home' %}
+        <li class="nav-item nav-item-active">
+        {% else %}
+        <li class="nav-item ">
+        {% endif %}
+          {% if page == 'home' %}
+          <a class="nav-items-active nav-link nav-items " href="{% url 'home' %}">Nos sorties</a>
+          {% else %}
+          <a class=" nav-link nav-items " href="{% url 'home' %}">Nos sorties</a>
+          {% endif %}
+        </li>
+
+        {% if page == 'calendar' %}
+        <li class="nav-item nav-item-active">
+        {% else %}
+        <li class="nav-item">
+        {% endif %}
+        {% if page == 'calendar' %}
+        <a class="nav-link nav-items nav-items-active" href="{% url 'calendar' %}">Calendrier</a>
+        {% else %}
+        <a class="nav-link nav-items" href="{% url 'calendar' %}">Calendrier</a>
+        {% endif %}
+        </li>
+
+        
+        {% if page == 'blogs' %}
+        <li class="nav-item nav-item-active">
+        {% else %}
+        <li class="nav-item">
+        {% endif %}
+        
+        {% if page == 'blogs' %}
+        <a class="nav-link nav-items nav-items-active" href="{% url 'blogs' %}"> Notre blog </a>
+        {% else %}
+        <a class="nav-link nav-items" href="{% url 'blogs' %}"> Notre blog </a>
+        {% endif %}
+        </li>
+
+        {% if page == 'home' %}
+        <li id="dropdownMenu" class="nav-item"onclick="dropdown()">
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle nav-link nav-items"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Type
+            </a>
+
+            <ul
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="dropdownMenuLink"
+            >
+            <li><a class="dropdown-item" href="{%url 'home' %}">Tous</a></li>
+            <li>
+            <li><a class="dropdown-item" href="/?q=bivouac">Bivouac</a></li>
+            <li>
+              <a class="dropdown-item" href="/?q=randonnee">Randonnées</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/?q=kayak">Sorties Kayak</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/?q=sejour">Séjours</a>
+            </li>
+            </ul>
+          </div>
+        </li>
+        {% endif %}
+      </ul>
+      <div class="notification-nav-resp">
+        <div id="line1" class="line-resp"></div>
+        <span id="notification-bell" class="fa-solid fa-bell fa-xl mx-1"></span>
+        <div id="line2" class="line-resp"></div>
+      </div>
+      <div class="notifications-container-resp mt-5">
+        <div class="notification-wrapper-resp mt-3" role="link" onclick="loadNotification()" >
+          <h1 class="notifi-title mb-2">Sortie de: lalla setti | Tlemcen</h1>
+          <div class="desc-date row">
+            <p class="desc col-9">Félicitations: Vous étiez accépté pour rejoindre cette sortie le 21 mai 2022</p>
+            <span class="date col-1">05/05</span>
+            <div class="seperator"></div>
+          </div>
+        </div>
+        <div class="notification-wrapper-resp mt-3" role="link" onclick="loadFeedback()">
+          <h1 class="notifi-title mb-2">votre avis nous concerne</h1>
+          <div class="desc-date row">
+            <p class="desc col-9">Laissez nous un feedback sur votre derniere visite à tipaza!</p>
+            <span class="date col-1">03/05</span>
+            <div class="seperator"></div>
+          </div>
+        </div>
+        <div class="notification-wrapper-resp mt-3">
+          <h1 class="notifi-title mb-2">Statut mis à jour</h1>
+          <div class="desc-date row">
+            <p class="desc col-9">Felicitations! Vous etes devenu membre fidele de Live the Adventure Algeria</p>
+            <span class="date col-1">05/05</span>
+          </div>
+        </div>
+        <div class="notification-wrapper-resp mt-3">
+          <h1 class="notifi-title mb-2">Statut mis à jour</h1>
+          <div class="desc-date row">
+            <p class="desc col-9">Felicitations! Vous etes devenu membre fidele de Live the Adventure Algeria</p>
+            <span class="date col-1">05/05</span>
+          </div>
+        </div>
+        <div class="notification-wrapper-resp mt-3">
+          <h1 class="notifi-title mb-2">Statut mis à jour</h1>
+          <div class="desc-date row">
+            <p class="desc col-9">Felicitations! Vous etes devenu membre fidele de Live the Adventure Algeria</p>
+            <span class="date col-1">05/05</span>
+          </div>
+        </div>
+        <div class="notification-wrapper-resp mt-3">
+          <h1 class="notifi-title mb-2">Statut mis à jour</h1>
+          <div class="desc-date row">
+            <p class="desc col-9">Felicitations! Vous etes devenu membre fidele de Live the Adventure Algeria</p>
+            <span class="date col-1">05/05</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-footer">
+      <div id="seperator-foot" class="seperator"></div>
+      <div class="brands">
+        <i class="fa-brands fa-instagram fa-md"></i>
+        <i class="fa-brands fa-facebook fa-md"></i>
+      </div>
+    </div>
+
+  </div>
+   <div id="feedback-resp" class="navbar-responsive ">
+    <div class="navbar-header"> 
+      <span class="bi bi-arrow-left" onclick="returnMainNav()"></span>
+        <span class="bi bi-x" onclick="closeNav()"></span>  
+    </div>
+    <div class="navbar-body mt-4 position-relative">
+
+        <h1 class="title-feedback-resp ">votre avis nous concerne</h1>
+        <div class="hor-sep"></div>
+        <p class="paragraph">Laissez nous un feedback sur votre derniere visite à tipaza!</p>
+        <form action="#" method="POST" class="form-wrapper row" id="avisformxs">
+          {% csrf_token %}
+          {{feedform.feed_form}}
+          <div id="rating-resp" class="rating-contaier ms-2 col-5">
+            <h3>Évaluez ce voyage</h3>
+            <fieldset class="rate">
+              <input
+                type="radio"
+                id="rating10"
+                name="rating10"
+                value="10"
+              /><label for="rating10" title="5 stars"></label>
+              <input
+                type="radio"
+                id="rating9"
+                name="rating9"
+                value="9"
+              /><label
+                class="half"
+                for="rating9"
+                title="4 1/2 stars"
+              ></label>
+              <input
+                type="radio"
+                id="rating8"
+                name="rating8"
+                value="8"
+              /><label for="rating8" title="4 stars"></label>
+              <input
+                type="radio"
+                id="rating7"
+                name="rating7"
+                value="7"
+              /><label
+                class="half"
+                for="rating7"
+                title="3 1/2 stars"
+              ></label>
+              <input
+                type="radio"
+                id="rating6"
+                name="rating6"
+                value="6"
+              /><label for="rating6" title="3 stars"></label>
+              <input
+                type="radio"
+                id="rating5"
+                name="rating5"
+                value="5"
+              /><label
+                class="half"
+                for="rating5"
+                title="2 1/2 stars"
+              ></label>
+              <input
+                type="radio"
+                id="rating4"
+                name="rating4"
+                value="4"
+              /><label for="rating4" title="2 stars"></label>
+              <input
+                type="radio"
+                id="rating3"
+                name="rating3"
+                value="3"
+              /><label
+                class="half"
+                for="rating3"
+                title="1 1/2 stars"
+              ></label>
+              <input
+                type="radio"
+                id="rating2"
+                name="rating2"
+                value="2"
+              /><label for="rating2" title="1 star"></label>
+              <input
+                type="radio"
+                id="rating1"
+                name="rating1"
+                value="1"
+              /><label
+                class="half"
+                for="rating1"
+                title="1/2 star"
+              ></label>
+            </fieldset>
+          </div>
+          <div class="comm-container ">
+            <h3>Partagez votre opinion avec nous
+            </h3>
+            <p class="text">
+              <textarea
+                name="comment"
+                type="comment"
+                class="validate[required,length[6,300]] feedback-input"
+                id="feedback-comment"
+                required
+                placeholder="écrire quelque chose ici..."
+              ></textarea>
+            </p>
+          </div>
+        </form>
+        <button id="btn2-resp" class="btn button my-4" type="submit" form="avisformxs">
+          Envoyer
+        </button>
+    </div>
+    <div class="navbar-footer">
+      <div id="seperator-foot" class="seperator"></div>
+      <div class="brands">
+        <i class="fa-brands fa-instagram fa-md"></i>
+        <i class="fa-brands fa-facebook fa-md"></i>
+      </div>
+    </div>
+
+  </div>
+  <div id="message-congrat-resp" class="navbar-responsive ">
+    <div class="navbar-header"> 
+      <span  class="bi bi-arrow-left" onclick="returnMainNav()"></span >
+        <span class="bi bi-x" onclick="closeNav()"></span>  
+    </div>
+    <div id="message-resp" class="navbar-body">
+
+        <h1 class="title-feedback-resp ">Sortie de: lalla setti | Tlemcen</h1>
+        <div class="hor-sep"></div>
+        <p class="paragraph">Félicitations: Vous étiez accépté pour rejoindre cette sortie le 21 mai 2022</p>
+    </div>
+    <div class="navbar-footer">
+      <div id="seperator-foot" class="seperator"></div>
+      <div class="brands">
+        <i class="fa-brands fa-instagram fa-md"></i>
+        <i class="fa-brands fa-facebook fa-md"></i>
+      </div>
+    </div>
+
+  </div> 
+  
+{% else %}
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand mx-auto" href="{% url 'home' %}"
+        ><img src="{% static 'images/IMG_5359.PNG' %}" alt="logo" height="40"
+      /></a>
+      <buttons
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarScroll"
+        aria-controls="navbarScroll"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="bi bi-list"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            />
+          </svg>
+        </span>
+      </buttons>
+      <div class="collapse container navbar-collapse" id="navbarScroll">
+        
+        <ul class="navbar-nav me-auto ms-5 my-2 my-lg-0 navbar-nav-scroll">
+          <li class="nav-item">
+            <a class="nav-link nav-items" href="{% url 'home' %}">Nos sorties</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-items" href="{%url 'calendar'%}">Calendrier</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-items" href="{%url 'blogs'%}"> Notre blog </a>
+          </li>
+          {% if page == 'home' %}
+          <li class="nav-item">
+            <div class="dropdown">
+              <a
+                class="dropdown-toggle nav-link nav-items"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Type
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-dark" 
+              aria-labelledby="dropdownMenuLink" >
+                <li><a class="dropdown-item" href="{%url 'home' %}">Tous</a></li>
+                <li>
+                <li><a class="dropdown-item" href="/?q=bivouac">Bivouac</a></li>
+                <li>
+                  <a class="dropdown-item" href="/?q=randonnee">Randonnées</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/?q=kayak">Sorties Kayak</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/?q=sejour">Séjours</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="d-flex">
+          <button
+            id="connect"
+            class="btn me-2 btns"
+            data-bs-toggle="modal"
+            data-bs-target="#login-modal"
+          >
+            se connecter
+          </button>
+          <button id="sign-up" class="btn button btns" data-bs-toggle="modal"
+          data-bs-target="#signUp-modal">s'inscrire</button>
+        </div>
+        
+      </div>
+    </div>
+  </nav>
+
+  {% endif %}
+  
+{% include 'sign_in_up.html' %}
+
+
+    
+ 

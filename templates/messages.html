@@ -1,0 +1,16 @@
+{% extends "main.html"%}
+
+    {% block content %}
+
+
+
+    <div class="container p-5" Style="color:white">
+        <h2 class="font-weight-bold mt-3">{{message_title}}</h2>
+          <hr>
+          {% for message in messages %}
+          <p>{{message}}</p>
+          {% endfor %}
+        </div>
+
+
+    {% endblock %}

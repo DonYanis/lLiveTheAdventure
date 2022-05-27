@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+ 
+{% block content %}
+
+
+<div>
+    <div >
+        <a href="{%url 'userprofile' request.user.id %}">back</a>
+        <h3>Edit your profile</h3>
+    </div>
+</div>
+<div >
+    <form class="form" action="" method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {%for field in form%}
+        <div >
+            <label >{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+ 
+        <div>
+            <a  href="{%url 'userprofile' request.user.id %}">Cancel</a>
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+</div>
+
+{% endblock content%}

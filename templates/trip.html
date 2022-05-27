@@ -1,0 +1,240 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  {% if request.user.username == 'admin' %}
+
+{% load static %}
+    <div class="container">
+        <div class="nav">
+            <a href="{% url 'home' %}"><img src="{% static 'images/IMG_5359.PNG' %}" alt="logo"></a>
+        <a href="{% url 'home' %}"><h3> ADMIN PAGE</h3></a>
+        <a href="#" id="log-out" class="navlogout">log out</a>
+        </div>
+        <main>
+            <div class="infosSortie1">
+                <div>
+                    <h2>{{trip.name}}</h2>
+                    <h4>{{trip.taken_places}} / {{trip.total_places}}</h4>
+                </div>
+                <h5>{{trip.depart}} - {{trip.retour}}</h5>
+            </div>
+            <div class="infosSortie2">
+                <div class="liste">
+                    <h3>Liste des participants:</h3>
+                    <div class="participants">
+                      {%for participant in waitinglist%}
+                      <a href="{% url 'tripPage' trip.id participant.id %}" class="participant">
+                          <div class="pic">
+                              {% if participant.has_avatar %}
+                              <img src="{{participant.avatar.url}}" class="profile-pic" alt="my pic">
+                              {% else %}
+                              <p class="profile-pic-text" >{{participant.name.0}}</p>
+                              {% endif %}                            </div>
+                          <div class="name-pseudo">
+                              <h5 class="name">{{participant.name}}</h5>
+                              <p class="pseudo">#{{participant.username}}</p>
+                          </div>
+                          <p class="statut">{{participant.status}}</p>
+                      </a>
+                     
+                      {%endfor%}
+                        {%for participant in participants%}
+                        <a href="{% url 'tripPage' trip.id participant.id %}" class="participant">
+                            <div class="pic">
+                                {% if participant.has_avatar %}
+                                <img src="{{participant.avatar.url}}" class="profile-pic" alt="my pic">
+                                {% else %}
+                                <p class="profile-pic-text" >{{participant.name.0}}</p>
+                                {% endif %}                            </div>
+                            <div class="name-pseudo">
+                                <h5 class="name">{{participant.name}}</h5>
+                                <p class="pseudo">#{{participant.username}}</p>
+                            </div>
+                            <p class="statut">{{participant.status}}</p>
+                        </a>
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="between"></div>
+                <div class="right">
+                    <div class="profile">
+                        <div class="pic">
+                            {% if currentuser.has_avatar %}
+                                <img src="{{currentuser.avatar.url}}" class="profile-pic" alt="my pic">
+                                {% else %}
+                                <p class="profile-pic-text" >{{currentuser.name.0}}</p>
+                                {% endif %} 
+                             </div>
+                        {% if currentuser %}
+                        <div class="infos">
+                            <div class="infos1">
+                                <p>Nom:</p>
+                                <p>Psudo:</p>
+                                <p>Num </p>
+                                <p>Email:</p>
+                                <p>Statut</p>
+                                <p>Points:</p>
+                            </div>
+                            <div class="infos2">
+                                <p class="nom">{{currentuser.name}}</p>
+                                <p class="psudo">{{currentuser.username}}</p>
+                                <p class="numTel">{{currentuser.phonenumber}}</p>
+                                <p class="email">{{currentuser.email}}</p>
+                                <p class="statut-sortie">{{currentuser.status}}</p>
+                                <p class="points-sortie">{{currentuser.points}}</p>
+                                <form id='modifierPofileSortieForm' autocomplete="off" action="" method="POST">
+                                  {% csrf_token %}
+                                  <select name="statut-sortie" id="statut-sortie" required>
+                                        <option value="Simple">Simple</option>
+                                        <option value="Adherent">adherant</option>
+                                        <option value="fidele">fidele</option>
+                                    </select>
+                                    <input type="number" name="points-sortie" id="points-sortie" placeholder="inserez le nombre de points">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                          {% if currentuser_accepted %}
+                          <button id="accepter">Accepté</button>
+                            {% else %}
+                            <button id="accepter"><a href="{% url 'acceptreservation' trip.id currentuser.id %}">Accepter</a></button>
+                            <button id="rejeter"><a href="{% url 'refusereservation' trip.id currentuser.id %}">Rejeter</a></button>
+                            {% endif %}
+                            <button id="modifierPofileSortie">Modifier le profile</button>
+                            <button type="submit" form="modifierPofileSortieForm" id="enregistrerPofileSortie">Enregistrer</button>
+                         </div>
+                        </div>
+                        {% else %}
+                        <div class="infos">
+                          <div class="infos1">
+                              <p>Nom:</p>
+                              <p>Psudo:</p>
+                              <p>Num de tel</p>
+                              <p>Email:</p>
+                              <p>Statut</p>
+                              <p>Points:</p>
+                          </div>
+                          <div class="infos2">
+                              <p class="nom"></p>
+                              <p class="psudo"></p>
+                              <p class="numTel"></p>
+                              <p class="email"></p>
+                              <p class="statut-sortie"></p>
+                              <p class="points-sortie"></p>
+                              <form id='modifierPofileSortieForm' autocomplete="off">
+                                  <select name="statut-sortie" id="statut-sortie" required>
+                                      <option value="Simple">Simple</option>
+                                      <option value="Adherent">adherant</option>
+                                      <option value="fidele">fidele</option>
+                                  </select>
+                                  <input type="number" name="points-sortie" id="points-sortie" placeholder="inserez le nombre de points">
+                              </form>
+                          </div>
+                      </div>
+                      <div class="buttons">
+                          
+                          <button id="accepter">Accepter</button>
+                          <button id="rejeter">Rejeter</button>
+                          <button id="modifierPofileSortie">Modifier le profile</button>
+                          <button type="submit" form="modifierPofileSortieForm" id="enregistrerPofileSortie">Enregistrer</button>
+                       </div>
+                      </div>
+                        {% endif %}
+                </div>  
+            </div>
+            <div class="infosSortie3">
+                <button id="annuler">Annuler la sortie</button>
+                {% if trip.is_closed %}
+                 <button id="inscription-termine">Inscriptions terminées</button>
+                {% else %} 
+                 <button id="fermer-inscription">Fermer les inscriptions</button>
+                {% endif %}
+                <button id="modifierSortie">Modifier la sortie</button>
+            </div>
+        </main>
+    </div>
+    <div class="dark-cover"></div>
+    <div class="creerSortie">
+        <div class="close">
+            <svg version="1.1" id="Capa_1"  x="0px" y="0px"
+                 viewBox="0 0 460.775 460.775" style="enable-background:new 0 0 460.775 460.775; fill:#fff" xml:space="preserve">
+            <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+                c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+                c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+                c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
+                l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
+                c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/>
+            </svg>
+        </div>
+        <h2>Modifier une sortie</h2>
+        <form id="form-sortie"action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{tripform.trip_form}}
+            <div class="creerSortiepart creerSortie1">
+                <label for="NomSortie">Nom de la sortie</label>
+                <input type="text" name="NomSortie" id="NomSortie" required>
+                <label for="categorie">Catégorie</label>
+                <select name="categorie" id="categorie">
+                    {%for type in types%}
+                    <option value="{{type.name}}">{{type.name}}</option>
+                    {%endfor%}
+                  </select>
+                <label for="niveau">Niveau:</label>
+                <select name="niveau" id="niveau">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" rows="2" required></textarea>
+                <label for="lienBlog">Lien du blog:</label>
+                <input type="text" name="lienBlog" id="lienBlog">
+            </div>
+            <div class="between"></div>
+            <div class="creerSortiepart creerSortie2">
+                <label for="depart">départ:</label>
+                <input type="datetime-local" id="depart" name="depart" required>
+                <label for="retour">Retour:</label>
+                <input type="datetime-local" id="retour" name="retour" required>
+                <label for="pointRV">Point de rendez-vous:</label>
+                <input type="text" id="pointRV" name="pointRV" required>
+                <label for="nombrePlaces">Nombre de places:</label>
+                <input type="number" id="nombrePlaces" name="nombrePlaces" required>
+                <label for="prix">Prix (DA):</label>
+                <input type="number" id="prix" name="prix" required>
+                <input type="submit" id="submitSortie" class="submit">
+            </div>
+            <div class="between"></div>
+            <div class="creerSortiepart creerSortie3">
+                <label for="programme">Programme:</label>
+                <textarea name="programme" id="programme" rows="2"></textarea>
+                <label for="prevoir">à prévoir</label>
+                <textarea name="prevoir" id="prevoir" rows="2"></textarea>
+                <label for="prixComprend">Le prix comprend:</label>
+                <input type="text" name="prixComprend" id="prixComprend">
+                <label for="insererPhotosSortie" class="insererPhotosLabel">inserer des photos</label>
+                <input type="file" name="insererPhotosSortie" id="insererPhotosSortie" class="insererPhotos" multiple required>
+            </div>
+        </form>
+    </div>
+    <div class="tableau-log-out">
+        <p>vous etes sure de vouloir deconnecter?</p>
+        <a href="{% url 'logout' %}" id="log-out-oui">oui</a>
+        <a href="#" id="log-out-non">non</a>
+    </div>
+    <div class="tableau-annuler">
+        <p>vous etes sure de vouloir annuler cette sortie? un email va etre envoyer aux inscrits pour les mettre au courant</p>
+        <a href="{% url 'delete_trip' trip.id %}" id="annuler-oui">oui</a>
+        <a href="#" id="annuler-non">non</a>
+    </div>
+    <div class="tableau-fermer-inscription">
+        <p>vous etes sure de fermer les inscription?</p>
+        <a href="{% url 'closetrip'  trip.id %}" id="fermer-inscription-oui">oui</a>
+        <a href="#" id="fermer-inscription-non">non</a>
+    </div>
+  <script src="{%static 'js/admin-sortie.js' %} "></script>
+
+{% endif %}
+{% endblock content %}

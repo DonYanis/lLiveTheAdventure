@@ -1,0 +1,422 @@
+{% load static %} 
+   <!-- modal1  no notification-->
+    <div  class="modal fade"
+        id="notification-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+      >
+      <div class="bg-container">
+        <img
+          id="first"
+          class="SVGs"
+          src="{% static 'components/Vector 61.svg' %}"
+          alt=""
+          srcset=""
+        />
+        <img
+          id="second"
+          class="SVGs"
+          src="{% static 'components/Vector 60.svg' %}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div id="modal-notif" class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div id="not-container" class="form-container sign-in-container">
+            <svg
+              id="close-btn"
+              class="position-absolute top-0 start-100 translate-middle"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-x"
+              viewBox="0 0 16 16"
+              data-bs-dismiss="modal"
+              data-bs-target="#notification-modal"
+              aria-label="Close"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+            <div
+              class="notifi-icon position-absolute top-0 start-50 translate-middle shadow"
+            >
+              <span
+                id="noti-modal"
+                class="fa-solid fa-bell fa-shake fa-3x"
+              ></span>
+            </div>
+            <div class="notification-wrapper1">
+              <span id="noti2-modal" class="fa-solid fa-bell fa-9x"></span>
+            </div>
+            <h1 class="noti-title">Aucune notification pour l'instant</h1>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <!-- modal2 boite de notifications -->
+
+    <div
+        class="modal fade"
+        id="notification2-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+      >
+      <div class="bg-container">
+        <img
+          id="first"
+          class="SVGs"
+          src="{% static 'components/Vector 61.svg' %}"
+          alt=""
+          srcset=""
+        />
+        <img
+          id="second"
+          class="SVGs"
+          src="{% static 'components/Vector 60.svg' %}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div
+        id="modal-notif2"
+        class="modal-dialog modal-dialog-centered modal-lg"
+      >
+        <div class="modal-content">
+          <div id="not-container" class="notification-wrapper">
+            <svg
+              id="close-btn"
+              class="position-absolute top-0 start-100 translate-middle"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-x"
+              viewBox="0 0 16 16"
+              data-bs-dismiss="modal"
+              data-bs-target="#notification2-modal"
+              aria-label="Close"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+            <div
+              class="notifi-icon position-absolute top-0 start-50 translate-middle shadow"
+            >
+              <span
+                id="noti-modal"
+                class="fa-solid fa-bell fa-shake fa-3x"
+              ></span>
+            </div>
+            <div id="not2-container" class="noti-container">
+              <!-- ----------------------------- -->
+              <div class="notification row">
+                <div class="attr-container row col-11" data-bs-toggle="modal" data-bs-target="#notification4-modal">
+                  <h3 class="n-titles col-5">votre avis nous concerne</h3>
+                  <p class="n-par col-5">
+                    Laissez nous un feedback!
+                  </p>
+                  <span class="n-rate col-1"></span>
+                </div>
+                <div class="col-1 shadow trash-container mx-4">
+                  <i class="fa-solid fa-trash-can fa-lg" role="button"></i>
+                </div>
+              </div>
+              {% for notification in request.user.notification_set.all %}
+              <div class="notification row ">
+                <div
+                  class="attr-container row col-11"
+                  data-bs-target="#notification3-modal"
+                  data-bs-toggle="modal"
+                >
+                  <h3 class="n-titles col-5">
+                    {{notification.name}}
+                  </h3>
+                  <p class="n-par col-5">
+                    {{notification.body}}
+                  </p>
+                  <span class="n-rate col-1"></span>
+                </div>
+                <div class="col-1 shadow trash-container mx-4">
+                  <a href="{% url 'deletenotif' notification.id%}" class="deletenotiftrash"><i class="fa-solid fa-trash-can fa-lg"  ></i></a>
+                </div>
+              </div>
+{% endfor %}
+              
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- modal3 congratulations trip-->
+    <div
+        class="modal fade"
+        id="notification3-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+      >
+      <div class="bg-container">
+        <img
+          id="first"
+          class="SVGs"
+          src="{% static 'components/Vector 61.svg' %}"
+          alt=""
+          srcset=""
+        />
+        <img
+          id="second"
+          class="SVGs"
+          src="{% static 'components/Vector 60.svg' %}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div
+          id="modal-notif2"
+          class="modal-dialog modal-dialog-centered modal-lg"
+        >
+        <div class="modal-content">
+          <div id="not3-container" class="notification-wrapper">
+            <svg
+              id="close-btn"
+              class="position-absolute top-0 start-100 translate-middle"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-x"
+              viewBox="0 0 16 16"
+              data-bs-dismiss="modal"
+              data-bs-target="#notification3-modal"
+              aria-label="Close"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg> 
+            <span id="modalReturn" role="button" data-bs-target="#notification2-modal" data-bs-toggle="modal" class="bi bi-arrow-left position-absolute top-0 start-0 ms-4"></span role="button">
+            <div
+              class="notifi-icon position-absolute top-0 start-50 translate-middle shadow"
+            >
+              <span
+                id="noti-modal"
+                class="fa-solid fa-bell fa-shake fa-3x"
+              ></span>
+            </div>
+            <div class="noti-container2">
+              <h1 id="sortie-title" class="noti-title mt-5">
+                Sortie de: Cap Carbon | Bejaia
+              </h1>
+              <div class="hr-line"></div>
+              <p id="descr" class="n-par mt-5">
+                Félicitations: Vous étiez accépté pour rejoindre cette sortie le
+                21 mai 2022
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal4: votre avis nous concerne -->
+    <div
+      class="modal fade"
+      id="notification4-modal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      >
+      <div class="bg-container">
+        <img
+          id="first"
+          class="SVGs"
+          src="{% static 'components/Vector 61.svg' %}"
+          alt=""
+          srcset=""
+        />
+        <img
+          id="second"
+          class="SVGs"
+          src="{% static 'components/Vector 60.svg' %}"
+          alt=""
+          srcset=""
+        />
+      </div>
+      <div
+        id="modal-notif3"
+        class="modal-dialog modal-dialog-centered modal-lg"
+      >
+        <div class="modal-content">
+          <div id="not4-container" class="notification-wrapper">
+            <svg
+              id="close-btn"
+              class="position-absolute top-0 start-100 translate-middle"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-x"
+              viewBox="0 0 16 16"
+              data-bs-dismiss="modal"
+              data-bs-target="#notification4-modal"
+              aria-label="Close"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+            <span id="modalReturn" role="button" data-bs-target="#notification2-modal" data-bs-toggle="modal" class="bi bi-arrow-left position-absolute top-0 start-0 ms-4"></span role="button">
+              <div
+              class="notifi-icon position-absolute top-0 start-50 translate-middle shadow"
+              >
+              <span
+                id="noti-modal"
+                class="fa-solid fa-bell fa-shake fa-3x"
+              ></span>
+            </div>
+
+
+            <div class="noti-container2">
+              <h1 id="sortie-title" class="noti-title mt-5">
+                votre avis nous concerne
+              </h1>
+              <div class="hr-line"></div>
+              <p id="descr" class="n-par mt-4">
+                Laissez nous un feedback sur votre derniere visite à tipaza!
+              </p>
+              </div>
+
+              <form action="#" method="POST" class="form-wrapper row" id="avisformx">
+                {% csrf_token %}
+                {{feedform.feed_form}}
+                <div class="rating-contaier ms-2 col-5">
+                  <h3>Évaluez ce voyage</h3>
+                  <fieldset class="rate">
+                    <input
+                      type="radio"
+                      id="rating20"
+                      name="rating20"
+                      value="10"
+                    /><label for="rating20" title="5 stars"></label>
+                    <input
+                      type="radio"
+                      id="rating19"
+                      name="rating19"
+                      value="9"
+                    /><label
+                      class="half"
+                      for="rating19"
+                      title="4 1/2 stars"
+                    ></label>
+                    <input
+                      type="radio"
+                      id="rating18"
+                      name="rating18"
+                      value="8"
+                    /><label for="rating18" title="4 stars"></label>
+                    <input
+                      type="radio"
+                      id="rating17"
+                      name="rating17"
+                      value="7"
+                    /><label
+                      class="half"
+                      for="rating17"
+                      title="3 1/2 stars"
+                    ></label>
+                    <input
+                      type="radio"
+                      id="rating16"
+                      name="rating16"
+                      value="6"
+                    /><label for="rating16" title="3 stars"></label>
+                    <input
+                      type="radio"
+                      id="rating15"
+                      name="rating15"
+                      value="5"
+                    /><label
+                      class="half"
+                      for="rating15"
+                      title="2 1/2 stars"
+                    ></label>
+                    <input
+                      type="radio"
+                      id="rating14"
+                      name="rating14"
+                      value="4"
+                    /><label for="rating14" title="2 stars"></label>
+                    <input
+                      type="radio"
+                      id="rating13"
+                      name="rating13"
+                      value="3"
+                    /><label
+                      class="half"
+                      for="rating13"
+                      title="1 1/2 stars"
+                    ></label>
+                    <input
+                      type="radio"
+                      id="rating12"
+                      name="rating12"
+                      value="2"
+                    /><label for="rating12" title="1 star"></label>
+                    <input
+                      type="radio"
+                      id="rating11"
+                      name="rating11"
+                      value="1"
+                    /><label
+                      class="half"
+                      for="rating11"
+                      title="1/2 star"
+                    ></label>
+                  </fieldset>
+                </div>
+                <div class="comm-container col-6 ">
+                  <h3>Partagez votre opinion avec nous
+                  </h3>
+                  <p class="text">
+                    <textarea
+                      name="comment"
+                      type="comment"
+                      class="validate[required,length[6,300]] feedback-input"
+                      id="feedback-comment"
+                      required
+                      placeholder="écrire quelque chose ici..."
+                    ></textarea>
+                  </p>
+                </div>
+              </form>
+              <button id="btn2" class="btn button my-4" type="submit" form="avisformx">
+                Envoyer
+              </button>
+            </div>
+
+
+          </div>
+        </div>
+    </div>
+
+
+    

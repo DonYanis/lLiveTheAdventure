@@ -1,0 +1,245 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'styles/mon-profile.css' %}" />
+
+
+<main>
+    <h1>Mon profile</h1>
+    <div class="border"></div>
+    <div class="container-profile">
+      <div class="left">
+        <div class="inner-left">
+          <div class="profile-pic">
+            {% if request.user.has_avatar %}
+            <img src="{{request.user.avatar.url}}" class="profile-pic" alt="my pic">
+            {% else %}
+            <p class="profile-pic-text">{{request.user.name.0}}</p>
+            {% endif %}  
+          </div>
+          <div id="change-pic">
+            <svg
+              version="1.1"
+              class="Capa_1"
+              x="0px"
+              y="0px"
+              viewBox="0 0 220.001 220.001"
+              style="enable-background: new 0 0 220.001 220.001"
+              xml:space="preserve"
+            >
+              <g>
+                <polygon points="0,220 59.34,213.86 6.143,160.661 	" />
+                <path
+                  d="M132.018,34.787l53.197,53.197L69.568,203.631L16.37,150.434L132.018,34.787z M212.696,60.502 c9.738-9.738,9.742-25.527,0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268,0l-17.346,17.347l53.199,53.196L212.696,60.502z "
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="between"></div>
+        <ul>
+          <li>
+            <div>
+              <h4 class="parametre">Nom complet :</h4>
+              <p class="value" id="nom-complet">{{request.user.name}}</p>
+            </div>
+            <svg
+              version="1.1"
+              class="Capa_1 change-info"
+              x="0px"
+              y="0px"
+              viewBox="0 0 220.001 220.001"
+              style="
+                fill: #f6ea38;
+                enable-background: new 0 0 220.001 220.001;
+              "
+              xml:space="preserve"
+            >
+              <g>
+                <polygon points="0,220 59.34,213.86 6.143,160.661 	" />
+                <path
+                  d="M132.018,34.787l53.197,53.197L69.568,203.631L16.37,150.434L132.018,34.787z M212.696,60.502 c9.738-9.738,9.742-25.527,0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268,0l-17.346,17.347l53.199,53.196L212.696,60.502z "
+                />
+              </g>
+            </svg>
+            <form id="nom-complet-form" method="POST" action="">
+              {% csrf_token %}
+              {{nameform.change_name_form}}
+              <input type="text" name="name" placeholder="Insérez votre nom complet" />
+            </form>
+            <button class="enregistrer" type="submit" form="nom-complet-form">
+              enregistrer
+            </button>
+          </li>
+          <li>
+            <div>
+              <h4 class="parametre">Nom d'utilisateur :</h4>
+              <p class="value" id="nom-dutilisateur">#{{request.user.username}}</p>
+            </div>
+            <svg
+              version="1.1"
+              class="Capa_1 change-info"
+              x="0px"
+              y="0px"
+              viewBox="0 0 220.001 220.001"
+              style="
+                fill: #f6ea38;
+                enable-background: new 0 0 220.001 220.001;
+              "
+              xml:space="preserve"
+            >
+              <g>
+                <polygon points="0,220 59.34,213.86 6.143,160.661 	" />
+                <path
+                  d="M132.018,34.787l53.197,53.197L69.568,203.631L16.37,150.434L132.018,34.787z M212.696,60.502 c9.738-9.738,9.742-25.527,0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268,0l-17.346,17.347l53.199,53.196L212.696,60.502z "
+                />
+              </g>
+            </svg>
+            <form id="nom-dutilisateur-form" method="POST" action="">
+              {% csrf_token %}
+              {{usernameform.change_username_form}}
+              <input
+                type="text"
+                name="username"
+                placeholder="Insérez votre nom d'utilisateur"
+              />
+            </form>
+            <button
+              class="enregistrer"
+              type="submit"
+              form="nom-dutilisateur-form"
+            >
+              enregistrer
+            </button>
+          </li>
+          <li>
+            <div>
+              <h4 class="parametre">Num de tel :</h4>
+              <p class="value" id="numdetel">{{request.user.phonenumber}}</p>
+            </div>
+            <svg
+              version="1.1"
+              class="Capa_1 change-info"
+              x="0px"
+              y="0px"
+              viewBox="0 0 220.001 220.001"
+              style="
+                fill: #f6ea38;
+                enable-background: new 0 0 220.001 220.001;
+              "
+              xml:space="preserve"
+            >
+              <g>
+                <polygon points="0,220 59.34,213.86 6.143,160.661 	" />
+                <path
+                  d="M132.018,34.787l53.197,53.197L69.568,203.631L16.37,150.434L132.018,34.787z M212.696,60.502 c9.738-9.738,9.742-25.527,0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268,0l-17.346,17.347l53.199,53.196L212.696,60.502z "
+                />
+              </g>
+            </svg>
+            <form id="numdetel-form" method="POST" action="">
+              {% csrf_token %}
+              {{phoneform.change_phone_form}}
+              <input type="text" name="phone" placeholder="Insérez votre num de tel" />
+            </form>
+            <button class="enregistrer" type="submit" form="numdetel-form">
+              enregistrer
+            </button>
+          </li>
+          <li>
+            <div>
+              <h4 class="parametre">Email :</h4>
+              <p class="value" id="email">{{request.user.email}}</p>
+            </div>
+            <svg
+              version="1.1"
+              class="Capa_1 change-info"
+              x="0px"
+              y="0px"
+              viewBox="0 0 220.001 220.001"
+              style="
+                fill: #f6ea38;
+                enable-background: new 0 0 220.001 220.001;
+              "
+              xml:space="preserve"
+            >
+              <g>
+                <polygon points="0,220 59.34,213.86 6.143,160.661 	" />
+                <path
+                  d="M132.018,34.787l53.197,53.197L69.568,203.631L16.37,150.434L132.018,34.787z M212.696,60.502 c9.738-9.738,9.742-25.527,0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268,0l-17.346,17.347l53.199,53.196L212.696,60.502z "
+                />
+              </g>
+            </svg>
+            <form id="email-form" method="POST" action="">
+              {% csrf_token %}
+              {{emailform.change_email_form}}
+              <input type="text" name="email" placeholder="Insérez votre nom email" />
+            </form>
+            <button class="enregistrer" type="submit" form="email-form">
+              enregistrer
+            </button>
+          </li>
+          <li>
+            <div>
+              <h4 class="parametre">Points :</h4>
+              <p class="value" id="points">{{request.user.points}}</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h4 class="parametre">Statut :</h4>
+              <p class="value simple" id="statut">{{request.user.status}}</p>
+            </div>
+          </li>
+          <li><p id="probleme">ce nom d'utilisateur est déja pris</p></li>
+        </ul>
+      </div>
+    </div>
+</main>
+
+
+<div class="dark-cover"></div>
+<div class="tableau">
+  <div class="close">
+    <svg
+      version="1.1"
+      id="Capa_1"
+      x="0px"
+      y="0px"
+      viewBox="0 0 460.775 460.775"
+      style="enable-background: new 0 0 460.775 460.775; fill: #fff"
+      xml:space="preserve"
+    >
+      <path
+        d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+            c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+            c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+            c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
+            l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
+            c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"
+      />
+    </svg>
+  </div>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{avatarform.change_avatar_form}}
+    <label for="upload-picture" id="insererPhotosLabel">Upload a picture</label>
+    <input
+    type="file"
+    name="upload-picture"
+    id="upload-picture"
+    required
+  />
+    <button type="submit" id="remove-picture">enregistrer</button>
+  </form>
+  
+</div>
+
+
+
+
+<script src="{% static 'js/mon-profile.js' %}"></script>
+
+{% endblock content%}

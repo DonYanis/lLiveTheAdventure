@@ -1,0 +1,359 @@
+{% load static %}
+<main>
+    <div class="carouasel-items my-5 slideshow-container">
+      {% for trip in trips %}
+      <div class="mySlides fade-item mx-3 position-relative">
+        <div class="first-part">
+          <div>
+            <p class="lead title-pop">Découvrez nos sorties!</p>
+            <div>
+              <div class="title-elemts">
+                <a class="prev mx-2" onclick="plusSlides(-1)">&#10094;</a>
+                <h2 id="carouasel-title">{{trip.name}}</h2>
+                <a class="next mx-2" onclick="plusSlides(1)">&#10095;</a>
+              </div>
+            </div>
+            <p class="type px-1">
+              {{trip.type}} <span class="level  p-1 shadow" id="l{{trip.level}}">Niveau: {{trip.level}}</span>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div id="gallery{{trip.id}}" class="col-lg-4 order-lg-last fourth-part position-relative sliderShow">
+          {% for image in trip.tripimage_set.all %}
+              <img
+                class="stack-img imgSlide"
+                src="{{image.avatar.url}}"
+                alt="{{trip.name}}"
+                srcset=""
+              />
+              {% endfor %}
+              {% if feedbacks %}
+              <div id="testo-slider-1" class="testo-slider">
+                {% for feed in feedbacks %}
+                {% if feed.is_accepted %}
+                <div class="testomonial row testo-slide">
+                  <div class="col-3">
+                    {% if feed.user.has_avatar %}
+                    <img
+                      id="person-pic"
+                      class="mx-1 human-profile"
+                      src="{{feed.user.avatar.url}}"
+                      alt="person photos"
+                      srcset=""
+                    />
+                    {% else %}
+                    <img
+                      id="person-pic"
+                      class="mx-1 human-profile"
+                      src="{% static 'components/avatar.svg' %}"
+                      alt="person photos"
+                      srcset=""
+                    />
+                    {% endif %}
+                  </div>
+                  <div class="person col-9">
+                    <span class="name-person">{{feed.user.name}}</span>
+                    <div class="star">
+                      {% for star in range %}
+                      {% if forloop.counter <= feed.rate %}
+                        <i class="bi bi-star-fill stars"></i>
+                      {% else %}
+                        <i class="bi bi-star stars"></i>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                    
+                    <p class="avis-person">
+                      {{feed.body}}
+                    </p>
+                  </div>
+                </div>
+                {% endif %}
+               {% endfor %}
+                
+              </div>
+            {% endif %}
+            <div class="icons position-relative">
+              <svg
+                id="s-line"
+                class="ic-lines"
+                width="2"
+                height="66"
+                viewBox="0 0 2 66"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M1 0V65.5" stroke="white" />
+              </svg>
+              <a href="#" role="button">
+                <svg
+                  id="insta"
+                  class="ic-lines"
+                  width="14"
+                  height="15"
+                  viewBox="0 0 14 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.88889 0.5C1.74456 0.5 0 2.24456 0 4.38889V10.6111C0 12.7554 1.74456 14.5 3.88889 14.5H10.1111C12.2554 14.5 14 12.7554 14 10.6111V4.38889C14 2.24456 12.2554 0.5 10.1111 0.5H3.88889ZM3.88889 2.05556H10.1111C11.3976 2.05556 12.4444 3.10244 12.4444 4.38889V10.6111C12.4444 11.8976 11.3976 12.9444 10.1111 12.9444H3.88889C2.60244 12.9444 1.55556 11.8976 1.55556 10.6111V4.38889C1.55556 3.10244 2.60244 2.05556 3.88889 2.05556ZM10.8889 2.83333C10.6826 2.83333 10.4848 2.91528 10.3389 3.06114C10.1931 3.207 10.1111 3.40483 10.1111 3.61111C10.1111 3.81739 10.1931 4.01522 10.3389 4.16108C10.4848 4.30694 10.6826 4.38889 10.8889 4.38889C11.0952 4.38889 11.293 4.30694 11.4389 4.16108C11.5847 4.01522 11.6667 3.81739 11.6667 3.61111C11.6667 3.40483 11.5847 3.207 11.4389 3.06114C11.293 2.91528 11.0952 2.83333 10.8889 2.83333ZM7 3.61111C4.85567 3.61111 3.11111 5.35567 3.11111 7.5C3.11111 9.64433 4.85567 11.3889 7 11.3889C9.14433 11.3889 10.8889 9.64433 10.8889 7.5C10.8889 5.35567 9.14433 3.61111 7 3.61111ZM7 5.16667C8.28644 5.16667 9.33333 6.21356 9.33333 7.5C9.33333 8.78644 8.28644 9.83333 7 9.83333C5.71356 9.83333 4.66667 8.78644 4.66667 7.5C4.66667 6.21356 5.71356 5.16667 7 5.16667Z"
+                    fill="white"
+                  />
+                </svg>
+              </a>
+              <svg
+                id="m-line"
+                class="ic-lines"
+                width="2"
+                height="17"
+                viewBox="0 0 2 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M1 0V65.5" stroke="white" />
+              </svg>
+              <a href="#" role="button">
+                <svg
+                  id="fb"
+                  class="ic-lines"
+                  width="14"
+                  height="15"
+                  viewBox="0 0 14 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 7.51754C14 3.64386 10.864 0.5 7 0.5C3.136 0.5 0 3.64386 0 7.51754C0 10.914 2.408 13.7421 5.6 14.3947V9.62281H4.2V7.51754H5.6V5.76316C5.6 4.40877 6.699 3.30702 8.05 3.30702H9.8V5.41228H8.4C8.015 5.41228 7.7 5.72807 7.7 6.11403V7.51754H9.8V9.62281H7.7V14.5C11.235 14.1491 14 11.1596 14 7.51754Z"
+                    fill="white"
+                  />
+                </svg>
+              </a>
+              <svg
+                id="f-line"
+                class="ic-lines"
+                width="2"
+                height="66"
+                viewBox="0 0 2 66"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M1 0V65.5" stroke="white" />
+              </svg>
+            </div>
+          </div>
+          <div class="col-lg-4 order-lg-first second-part">
+            <h3 class="p-title">Description</h3>
+            <p id="desc-para" class="lead p-des">
+              {{trip.description}}
+            </p>
+            {% if trip.blog_link %}
+            <a href="{{trip.blog_link}}" class="plus" role="button"
+                >lire plus
+                <span
+                  ><svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 10 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 0L4.11875 0.88125L7.60625 4.375H0V5.625H7.60625L4.11875 9.11875L5 10L10 5L5 0Z"
+                      fill="white"
+                    />
+                  </svg> </span
+              ></a>
+              {% endif %}
+          </div>
+          <div class="col-lg-4 third-part">
+            <div class="divScroll">
+              <div class="d-flex">
+                <h3 class="p-title p3-title">Départ:</h3>
+                <p class="lead p-des w-100 p3-des ms-2">
+                  {{trip.depart}}
+                </p>
+              </div>
+              <div class="d-flex">
+                <h3 class="p-title p3-title">Retour:</h3>
+                <p class="lead p-des w-100 p3-des ms-2">{{trip.retour}}</p>
+              </div>
+              <div class="d-flex">
+                <h3 class="p-title p3-title">Point de rendez vous:</h3>
+                <p class="lead p-des w-100 p3-des ms-2">
+                  {{trip.depart_place}}
+                </p>
+              </div>
+              <div class="d-flex">
+                <h3 class="p-title">Programme:</h3>
+                
+                <ul class="lead p-des list-prog">
+                  <li>Pause déjeuner .</li>
+                  <li>Visite du marché Traditionnel.</li>
+                  <li>Découverte du Moulin Ferrero.</li>
+                  <li>Visite du Musée d'Etienne dinet.</li>
+                  <li>Découverte des dunes de sable.</li>
+                  <li>Lorem ipsum dolor sit amet.</li>
+                  <li>Rerum fugiat possimus dolorum molestiae.</li>
+                  <li>Doloribus dolorem adipisci minus quod.</li>
+                </ul>
+              </div>
+            </div>
+            <svg
+              id="vict"
+              class="mt-1 vict-scroll"
+              width="16"
+              height="10"
+              viewBox="0 0 16 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                opacity="0.7"
+                d="M14.12 1.51127e-06L8 6.18084L1.88 9.76247e-07L-2.9442e-06 1.90283L8 10L16 1.90284L14.12 1.51127e-06Z"
+                fill="white"
+              />
+            </svg>
+            <div class="d-flex">
+              <h3 class="p-title">Prix:</h3>
+              <p class="lead p-des p3-des ms-2 w-100">{{trip.price}} DA</p>
+            </div>
+          </div>
+        </div>
+        {% if request.user.is_authenticated %}
+          {% if request.user in trip.participants_set.all %}
+            <button id="button-rejoin" class="btn button" type="submit" >
+              Accepté
+            </button>
+          {% elif request.user in trip.wiatinglist_set.all %}
+            <button id="button-rejoin" class="btn button" type="submit" >
+              En attente
+            </button>
+          {% else %}
+            <button id="button-rejoin" class="btn button" type="submit" data-bs-toggle="modal"
+            data-bs-target="#notification5-modal{{trip.id}}">
+              Rejoindre la sortie
+            </button>
+          {% endif %}
+        {% else %}
+          <button id="button-rejoin" class="btn button" type="submit" data-bs-toggle="modal"
+            data-bs-target="#login-modal">
+              Rejoindre la sortie
+            </button>
+        {% endif %}
+      </div>
+      {% if request.user.is_authenticated %}
+          <!-- modal5 conf rej-->
+<div
+class="modal fade"
+id="notification5-modal{{trip.id}}"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+aria-hidden="true"
+data-bs-backdrop="static"
+data-bs-keyboard="false"
+>
+<div class="bg-container">
+  <img
+    id="first"
+    class="SVGs"
+    src="{% static 'components/Vector 61.svg' %}"
+    alt=""
+    srcset=""
+  />
+  <img
+    id="second"
+    class="SVGs"
+    src="{% static 'components/Vector 60.svg' %}"
+    alt=""
+    srcset=""
+  />
+</div>
+<div
+  id="modal-notif5"
+  class="modal-dialog modal-dialog-centered modal-lg"
+>
+<div class="modal-content">
+<div id="not6-container" class="notification-wrapper">
+  <svg
+    id="close-btn"
+    class="position-absolute top-0 start-100 translate-middle"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    class="bi bi-x"
+    viewBox="0 0 16 16"
+    data-bs-dismiss="modal"
+    data-bs-target="#notification5-modal{{trip.id}}"
+    aria-label="Close"
+  >
+    <path
+      d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+    />
+  </svg>
+  <div
+    class="notifi-icon position-absolute top-0 start-50 translate-middle shadow"
+  >
+    <span
+      id="noti-modal"
+      class="fa-solid fa-bell fa-shake fa-3x"
+    ></span>
+  </div>
+  <div class="noti-container2">
+    <h1 id="sortie-title" class="noti-title mt-5">
+      {{trip.name}}
+    </h1>
+    <div class="hr-line"></div>
+    <p id="descr" class="n-par mt-5">
+      Etes vous sure de vouloir rejoindre cette sortie le {{trip.depart}}?
+    </p>
+    <button id="btn-modal" class="btn button mb-4 mt-3"><a href="{% url 'join_trip' trip.id%}" class="ouijesuissure">Oui, je suis sure</a></button>
+  </div>
+</div>
+</div>
+</div>
+</div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+  </main>
+
+  <div
+      class="dot-container d-flex align-items-center justify-content-center sticky-bottom"
+      style="text-align: center"
+    >
+    <span id="num-indicator" class="text-light me-2"></span>
+    {% for trip in trips %}
+    <div class="dot-icons shadow" onclick="currentSlide({{forloop.counter}})"></div>
+    {% endfor %}
+    <div class="title-elemts">
+      <a id="icon-footer" class="prev mx-2" onclick="plusSlides(-1)">&#10094;</a>
+      <a id="icon-footer" class="next mx-2" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+  </div>
+  
+  
+  <div class="footer-responsive row">
+    <div class="brand-site col-5">
+      <a class="navbar-brand-resp" href="{% url 'home' %}"
+          ><img src="{% static 'images/IMG_5359.PNG' %}" alt="logo" height="40"
+        /></a>
+    </div>
+    <div class="nav-items-resp col-4">
+      <a class="nav-item-resp nav-link nav-items" href="{% url 'home' %}">Nos sorties</a>
+      <a class="nav-item-resp nav-link nav-items" href="{%url 'calendar'%}">Calendrier</a>
+      <a class="nav-item-resp nav-link nav-items" href="{%url 'blogs'%}">Notre blog</a>
+      <div class="border-sides"></div>
+       </div>
+    <div class="social-brands col-3">
+      <a href="#facebook"><i class="bi bi-facebook social-icons-resp "></i>
+      </a>
+      <a href="#instagram"><i class="bi bi-instagram social-icons-resp"></i>
+      </a>
+    </div>
+  </div>
+
+<script src="{%static 'js/ImgSliderShow.js' %}"></script>
+<script src="{%static 'js/testo-Player.js' %}"></script>

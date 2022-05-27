@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/calendrier.css' %}">
+
+<main>
+        <div class="container-calendar">
+            <h1>Calendrier</h1>
+            <div class="border"></div>
+            <div class="arrows">
+                <div id="left-arrow">
+                    <svg version="1.1" id="Capa_1" x="0px" y="0px"
+	 viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+<g>
+	<g>
+		<polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369 		"/>
+	</g>
+</svg>
+
+                </div>
+                <div id="right-arrow">
+                    <svg version="1.1" id="Capa_1" x="0px" y="0px"
+	 viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+<g>
+	<g>
+		<polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369 		"/>
+	</g>
+</svg>
+
+                </div>
+            </div>
+            {% if firstmonth %}
+            <div class="all-sorties">
+                
+                <div class="sorties" id="active">
+                    <div class="month">
+                        <h3 id="month">{{firstmonth}}</h3>
+                        <h3 id="year">2022</h3>
+                    </div>
+                    {% for trip in trips %}
+                    {% if trip.month_name == firstmonth %}
+                    <a href="{% url 'homespecial' trip.id %}">
+                        <div class="sortie">
+                            <div class="color {{trip.type.code}}"></div>
+                            <h4 id="nom-sortie">{{trip.name}}</h4>
+                            <h5 id="date-sortie"></h5>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>{% for month in months %}
+                <div class="sorties">
+                    <div class="month">
+                        <h3 id="month">{{month}}</h3>
+                        <h3 id="year">2022</h3>
+                    </div>
+                    {% for trip in trips %}
+                    {% if trip.month_name == month %}
+                    <a href="{% url 'homespecial' trip.id %}">
+                        <div class="sortie">
+                            <div class="color {{trip.type.code}}"></div>
+                            <h4 id="nom-sortie">{{trip.name}}</h4>
+                            <h5 id="date-sortie"></h5>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    
+                    
+                </div>{% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <img src="{% static 'images/IMG_5359.png' %}" class="down-logo" alt="">
+    </main>
+
+  
+<script src="{% static 'js/calendrier.js' %}"></script>
+
+{% endblock content%}

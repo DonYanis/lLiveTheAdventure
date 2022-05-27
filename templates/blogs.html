@@ -1,0 +1,158 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/blogs.css' %}">
+<main>
+    <div class="text">
+        <h1>Bienvenue sur notre <span>blog</span></h1>
+        <h2>Pour voir une <span>Algerie</span> avec nos yeux</h2>
+    </div>
+    <div class="all-main-blogs">
+        {% for bloggroup in groups %}
+        <div class="main-blogs main{{forloop.counter}}">
+            <a href="{% url 'blogdetail' bloggroup.0.id %}" class="blog-link">
+                <div class="solo-blog blog">
+                    <img src="{{bloggroup.0.main_image.url}}" loading="lazy" alt="">
+                    <div class="background"></div>
+                    <h3>{{bloggroup.0.name}}</h3>
+                    <p>{{bloggroup.0.main_section}}</p>
+                    <a href="{% url 'blogdetail' bloggroup.0.id %}" class="lire-plus">lire le blog</a>
+                </div>
+            </a>
+            <div class="duo-blogs">
+                {% if bloggroup.1 %}
+                <a href="{% url 'blogdetail' bloggroup.1.id %}" class="blog-link">
+                    <div class="duo-first blog">
+                        <img src="{{bloggroup.1.main_image.url}}" loading="lazy" alt="">
+                        <div class="background"></div>
+                        <h3>{{bloggroup.1.name}}</h3>
+                        <p>{{bloggroup.1.main_section}}</p>
+                        <a href="{% url 'blogdetail' bloggroup.1.id %}" class="lire-plus">lire le blog</a>
+                    </div>
+
+                </a>{% endif %}
+                {% if bloggroup.2 %}
+                <a href="{% url 'blogdetail' bloggroup.2.id %}" class="blog-link">
+                    <div class="duo-second blog">
+                        <img src="{{bloggroup.2.main_image.url}}" loading="lazy" alt="">
+                        <div class="background"></div>
+                        <h3>{{bloggroup.2.name}}</h3>
+                        <p>{{bloggroup.2.main_section}}</p>
+                        <a href="{% url 'blogdetail' bloggroup.2.id %}" class="lire-plus">lire le blog</a>
+                    </div>
+                </a>{% endif %}
+            </div>
+            <div class="left-arrow">
+                <svg version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+                <g>
+                <g>
+                    <polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369 		"/>
+                </g>
+                </svg>
+            </div>
+            <div class="right-arrow">
+                <svg version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+                <g>
+                <g>
+                <polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369 		"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+        
+    <div class="secondary-blogs">
+        <h2>Voir plus</h2>
+        <div class="border"></div>
+        <div class="slider">
+            {% for blog in blogs %}
+            <a href="{% url 'blogdetail' blog.id %} ">
+                <div class="slider-blog">
+                    <img src="download.jpg" ddloading="lazy" alt="">
+                    <div class="background"></div>
+                    <h3>{{blog.name}}</h3>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="buttons">
+            <div class="go-left">
+            <svg version="1.1" id="Capa_1" x="0px" y="0px"
+                    viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+                <g>
+                    <path d="M437.2,178.7c12.8,12.8,12.8,33.4,0,46.2c-6.4,6.4-14.7,9.6-23.1,9.6s-16.7-3.2-23.1-9.6L277.7,111.5v345.8
+                        c0,18-14.6,32.7-32.7,32.7s-32.7-14.6-32.7-32.7V111.5L99,224.9c-12.8,12.8-33.4,12.8-46.2,0s-12.8-33.4,0-46.2L221.9,9.6
+                        C228,3.4,236.3,0,245,0c8.7,0,17,3.4,23.1,9.6L437.2,178.7z"/>
+                </g>
+                </svg>
+
+            </div>
+            <div class="go-right">
+            <svg version="1.1" id="Capa_1" x="0px" y="0px"
+                            viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+                    <g>
+                        <path d="M437.2,178.7c12.8,12.8,12.8,33.4,0,46.2c-6.4,6.4-14.7,9.6-23.1,9.6s-16.7-3.2-23.1-9.6L277.7,111.5v345.8
+                            c0,18-14.6,32.7-32.7,32.7s-32.7-14.6-32.7-32.7V111.5L99,224.9c-12.8,12.8-33.4,12.8-46.2,0s-12.8-33.4,0-46.2L221.9,9.6
+                            C228,3.4,236.3,0,245,0c8.7,0,17,3.4,23.1,9.6L437.2,178.7z"/>
+                    </g>
+                    </svg>
+        
+            </div>
+        </div>
+    </div>
+    <div class="grey-div"></div>
+    </main>
+
+
+    <footer>
+        <img src="IMG_5359.png" alt="live the adventure logo">
+        <div class="footer-nav">
+            <a href="#">
+                <div>
+                    <p>NOS SORTIE</p>
+                    <svg version="1.1" id="Capa_1" x="0px" y="0px"
+	 viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+<g>
+	<g>
+		<polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369 		"/>
+	</g>
+</svg>
+                </div>
+            </a>
+            <a href="#">
+                <div>
+                    <p>CALENDRIER</p>
+                    <svg version="1.1" id="Capa_1" x="0px" y="0px"
+	 viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+<g>
+	<g>
+		<polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369 		"/>
+	</g>
+</svg>
+                </div>
+            </a>
+            <a href="#">
+                <div>
+                    <p>NOTRE BLOG</p>
+                    <svg version="1.1" id="Capa_1" x="0px" y="0px"
+	 viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+<g>
+	<g>
+		<polygon points="0,332.668 245.004,82.631 490,332.668 413.507,407.369 245.004,235.402 76.493,407.369 		"/>
+	</g>
+</svg>
+                </div>
+            </a>
+        </div>
+        <div class="socials">
+            <a href="#"></a>
+            <a href="#"></a>
+        </div>
+    </footer>
+</body>
+<script src="{%static 'js/blogs.js' %}"></script>
+{% endblock content %}
+

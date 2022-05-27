@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <div class="nav">
+        <a href="{% url 'home' %}"><img src="{% static 'images/IMG_5359.PNG' %}" alt="logo"></a>
+        <a href="{% url 'home' %}"><h3> ADMIN PAGE</h3></a>
+        <a href="#" id="log-out" class="navlogout">log out</a>
+    </div>
+    <div class="creerBlog">
+        <h1>Modify blog</h1>
+        <div class="border"></div>
+        <form  action="" method="POST" id="form-blog" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{blogform.edit_blog}}
+            <div class="creerBlogpart creerBlog1">
+                <label for="nomBlog">Nom du blog:</label>
+                <input type="text" id="nomBlog" name="nomBlog" required>
+                <label for="blogSection1">texte princiapal:</label>
+                <textarea name="blogSection1" id="blogSection1" rows="2" required></textarea>
+                <label for="insererPhotoPrincipale" class="insererPhotosLabel">inserer la photo principale</label>
+                <input type="file" class="insererPhotos" name="insererPhotoPrincipale" id="insererPhotoPrincipale" required>
+            </div>
+            <div class="between"></div>
+            <div class="creerBlogpart creerBlog2">
+                <label for="titresection2">titre de la 2eme section:</label>
+                <input type="text" id="titresection2" name="titresection2">
+                <label for="blogSection2">text pour la 2eme section:</label>
+                <textarea name="blogSection2" id="blogSection2" rows="2"></textarea>
+                <label for="insererPhotosSection2" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection2" id="insererPhotosSection2" multiple>
+                <label for="titresection3">titre de la 3eme section:</label>
+                <input type="text" id="titresection3" name="titresection3" >
+                <label for="blogSection3">text pour la 3eme section:</label>
+                <textarea name="blogSection3" id="blogSection3" rows="2"></textarea>
+                <label for="insererPhotosSection3" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection3" id="insererPhotosSection3" multiple>
+                <input type="submit" class="submit" id="submitBlog">
+            </div>
+            <div class="between"></div>
+            <div class="creerBlogpart creerBlog3">
+                <label for="titresection4">titre de la 4eme section:</label>
+                <input type="text" id="titresection4" name="titresection4" >
+                <label for="blogSection4">text pour la 4eme section:</label>
+                <textarea name="blogSection4" id="blogSection4" rows="2"></textarea>
+                <label for="insererPhotosSection4" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection4" id="insererPhotosSection4" multiple>
+                <label for="titresection5">titre de la 5eme section:</label>
+                <input type="text" id="titresection5" name="titresection5" >
+                <label for="blogSection5">text pour la 5eme section:</label>
+                <textarea name="blogSection5" id="blogSection5" rows="2"></textarea>
+                <label for="insererPhotosSection5" class="insererPhotosLabel">inserer une photo</label>
+                <input type="file" class="insererPhotos" name="insererPhotosSection5" id="insererPhotosSection5" multiple>
+                <a href="{% url 'delete_blog' blog.id%}" id="supprimer-blog">supprimer blog</a>
+            </div>
+        </form>
+    </div>
+    <div class="dark-cover"></div>
+    <div class="tableau-log-out">
+        <p>vous etes sure de vouloir deconnecter?</p>
+        <a href="{% url 'logout' %}" id="log-out-oui">oui</a>
+        <a href="#" id="log-out-non">non</a>
+    </div>
+
+<script src="{%static 'js/admin-feedbacks.js' %} "></script>
+{% endblock content %}
